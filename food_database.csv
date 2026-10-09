@@ -1,0 +1,206 @@
+food,category,kcal_per_100g,carbs_g_per_100g,sugar_g_per_100g,protein_g_per_100g,fat_g_per_100g,data_note
+Plain cooked white rice,Indian meals,130,28.2,0.1,2.7,0.3,Estimated reference values; recipe/brand varies
+Brown rice cooked,Indian meals,123,25.6,0.2,2.7,1.0,Estimated reference values; recipe/brand varies
+Jeera rice,Indian meals,160,27,0.5,3.0,4.0,Estimated reference values; recipe/brand varies
+Vegetable pulao,Indian meals,150,25,2.0,3.0,4.0,Estimated reference values; recipe/brand varies
+Chicken biryani,Indian meals,180,22,1.2,9.0,6.0,Estimated reference values; recipe/brand varies
+Veg biryani,Indian meals,160,25,2.5,3.5,4.5,Estimated reference values; recipe/brand varies
+Idli,Indian meals,58,12.0,0.2,2.0,0.4,Estimated reference values; recipe/brand varies
+Plain dosa,Indian meals,168,28,1.0,4.0,4.0,Estimated reference values; recipe/brand varies
+Masala dosa,Indian meals,190,27,2.0,4.0,7.0,Estimated reference values; recipe/brand varies
+Rava dosa,Indian meals,210,30,1.5,4.0,8.0,Estimated reference values; recipe/brand varies
+Uttapam,Indian meals,160,25,2.0,4.5,4.0,Estimated reference values; recipe/brand varies
+Medu vada,Indian meals,280,27,2.0,8.0,16.0,Estimated reference values; recipe/brand varies
+Upma,Indian meals,150,22,2.0,4.0,5.0,Estimated reference values; recipe/brand varies
+Poha,Indian meals,130,23,2.0,3.0,3.0,Estimated reference values; recipe/brand varies
+Pongal,Indian meals,150,22,1.0,4.0,5.0,Estimated reference values; recipe/brand varies
+Chapati / roti,Indian meals,297,50,2.0,9.0,7.0,Estimated reference values; recipe/brand varies
+Phulka,Indian meals,260,52,1.5,8.0,2.0,Estimated reference values; recipe/brand varies
+Paratha,Indian meals,300,42,2.0,7.0,12.0,Estimated reference values; recipe/brand varies
+Aloo paratha,Indian meals,260,35,2.0,6.0,10.0,Estimated reference values; recipe/brand varies
+Puri,Indian meals,330,45,1.0,6.0,15.0,Estimated reference values; recipe/brand varies
+Naan,Indian meals,290,50,3.0,9.0,5.0,Estimated reference values; recipe/brand varies
+Bhatura,Indian meals,320,48,3.0,7.0,11.0,Estimated reference values; recipe/brand varies
+Dal tadka,Indian meals,115,14,2.0,6.0,4.0,Estimated reference values; recipe/brand varies
+Sambar,Indian meals,60,8,2.0,3.0,2.0,Estimated reference values; recipe/brand varies
+Rasam,Indian meals,35,5,2.0,1.5,1.0,Estimated reference values; recipe/brand varies
+Chana masala,Indian meals,150,22,4.0,7.0,4.0,Estimated reference values; recipe/brand varies
+Rajma curry,Indian meals,125,18,3.0,7.0,3.0,Estimated reference values; recipe/brand varies
+Palak paneer,Indian meals,160,8,3.0,8.0,11.0,Estimated reference values; recipe/brand varies
+Paneer butter masala,Indian meals,220,10,4.0,9.0,16.0,Estimated reference values; recipe/brand varies
+Kadai paneer,Indian meals,190,9,4.0,10.0,13.0,Estimated reference values; recipe/brand varies
+Aloo gobi,Indian meals,100,14,3.0,3.0,4.0,Estimated reference values; recipe/brand varies
+Mixed vegetable curry,Indian meals,95,12,4.0,3.0,4.0,Estimated reference values; recipe/brand varies
+Chicken curry,Indian meals,170,5,2.0,18.0,9.0,Estimated reference values; recipe/brand varies
+Tandoori chicken,Indian meals,165,2,1.0,25.0,6.0,Estimated reference values; recipe/brand varies
+Butter chicken,Indian meals,190,8,4.0,16.0,11.0,Estimated reference values; recipe/brand varies
+Fish curry,Indian meals,130,5,2.0,15.0,6.0,Estimated reference values; recipe/brand varies
+Egg curry,Indian meals,150,6,3.0,10.0,10.0,Estimated reference values; recipe/brand varies
+Curd rice,Indian meals,120,19,2.0,4.0,3.0,Estimated reference values; recipe/brand varies
+Lemon rice,Indian meals,175,27,1.0,3.0,6.0,Estimated reference values; recipe/brand varies
+Pesarattu,Indian meals,150,22,2.0,7.0,3.0,Estimated reference values; recipe/brand varies
+Appam,Indian meals,130,26,3.0,2.0,2.0,Estimated reference values; recipe/brand varies
+Puttu,Indian meals,160,32,2.0,3.0,2.0,Estimated reference values; recipe/brand varies
+Idiyappam,Indian meals,150,33,1.0,2.0,1.0,Estimated reference values; recipe/brand varies
+Thepla,Indian meals,280,42,3.0,7.0,9.0,Estimated reference values; recipe/brand varies
+Dhokla,Indian meals,160,22,4.0,7.0,5.0,Estimated reference values; recipe/brand varies
+Pav bhaji,Indian meals,150,20,5.0,4.0,6.0,Estimated reference values; recipe/brand varies
+Chole bhature,Indian meals,260,35,5.0,8.0,10.0,Estimated reference values; recipe/brand varies
+Vada pav,Indian meals,290,38,4.0,6.0,12.0,Estimated reference values; recipe/brand varies
+Samosa potato,Indian meals,300,35,3.0,5.0,16.0,Estimated reference values; recipe/brand varies
+Pakora,Indian meals,280,30,4.0,6.0,15.0,Estimated reference values; recipe/brand varies
+Aloo tikki,Indian meals,220,30,3.0,4.0,9.0,Estimated reference values; recipe/brand varies
+Bhel puri,Indian meals,150,25,5.0,4.0,4.0,Estimated reference values; recipe/brand varies
+Pani puri,Indian meals,180,28,4.0,4.0,6.0,Estimated reference values; recipe/brand varies
+Chicken tikka,Indian meals,150,3,1.0,24.0,5.0,Estimated reference values; recipe/brand varies
+Seekh kebab,Indian meals,220,4,1.0,18.0,15.0,Estimated reference values; recipe/brand varies
+Veg fried rice,Indian meals,170,27,3.0,4.0,5.0,Estimated reference values; recipe/brand varies
+Chicken fried rice,Indian meals,185,25,2.0,8.0,6.0,Estimated reference values; recipe/brand varies
+Hakka noodles,Indian meals,165,25,3.0,5.0,5.0,Estimated reference values; recipe/brand varies
+Mango pickle,Indian meals,120,15,8.0,2.0,6.0,Estimated reference values; recipe/brand varies
+Coconut chutney,Indian meals,250,10,3.0,3.0,23.0,Estimated reference values; recipe/brand varies
+Mint chutney,Indian meals,60,8,3.0,2.0,2.0,Estimated reference values; recipe/brand varies
+White bread,Continental & bakery,266,49,5.0,9.0,3.2,Estimated reference values; recipe/brand varies
+Whole wheat bread,Continental & bakery,247,41,6.0,13.0,4.2,Estimated reference values; recipe/brand varies
+Croissant,Continental & bakery,406,45,11.0,8.0,21.0,Estimated reference values; recipe/brand varies
+Pancake,Continental & bakery,227,28,8.0,6.0,10.0,Estimated reference values; recipe/brand varies
+Waffle,Continental & bakery,291,33,8.0,8.0,14.0,Estimated reference values; recipe/brand varies
+Oatmeal cooked,Continental & bakery,71,12,0.3,2.5,1.5,Estimated reference values; recipe/brand varies
+Cornflakes,Continental & bakery,357,84,8.0,7.0,0.4,Estimated reference values; recipe/brand varies
+Pasta cooked,Continental & bakery,157,31,0.6,5.8,0.9,Estimated reference values; recipe/brand varies
+Mac and cheese,Continental & bakery,164,20,3.0,6.0,7.0,Estimated reference values; recipe/brand varies
+Spaghetti with tomato sauce,Continental & bakery,120,20,4.0,4.0,3.0,Estimated reference values; recipe/brand varies
+Lasagna,Continental & bakery,135,14,4.0,8.0,5.0,Estimated reference values; recipe/brand varies
+Margherita pizza,Continental & bakery,266,33,4.0,11.0,10.0,Estimated reference values; recipe/brand varies
+Pepperoni pizza,Continental & bakery,298,31,4.0,13.0,13.0,Estimated reference values; recipe/brand varies
+Cheese sandwich,Continental & bakery,280,30,3.0,12.0,12.0,Estimated reference values; recipe/brand varies
+Grilled chicken sandwich,Continental & bakery,210,25,3.0,15.0,6.0,Estimated reference values; recipe/brand varies
+Caesar salad,Continental & bakery,150,8,2.0,6.0,11.0,Estimated reference values; recipe/brand varies
+Greek salad,Continental & bakery,100,7,4.0,4.0,7.0,Estimated reference values; recipe/brand varies
+Mashed potatoes,Continental & bakery,88,14,2.0,2.0,3.0,Estimated reference values; recipe/brand varies
+French fries,Continental & bakery,312,41,0.3,3.4,15.0,Estimated reference values; recipe/brand varies
+Roasted potatoes,Continental & bakery,149,26,1.2,3.0,4.0,Estimated reference values; recipe/brand varies
+Scrambled egg,Continental & bakery,148,2,1.0,10.0,11.0,Estimated reference values; recipe/brand varies
+Boiled egg,Continental & bakery,155,1.1,1.1,13.0,11.0,Estimated reference values; recipe/brand varies
+Omelette,Continental & bakery,154,1.5,1.0,11.0,11.0,Estimated reference values; recipe/brand varies
+Grilled salmon,Continental & bakery,206,0,0,22.0,12.0,Estimated reference values; recipe/brand varies
+Roast chicken,Continental & bakery,190,0,0,28.0,8.0,Estimated reference values; recipe/brand varies
+Beef burger patty,Continental & bakery,250,0,0,17.0,20.0,Estimated reference values; recipe/brand varies
+Soup vegetable,Continental & bakery,45,7,3.0,2.0,1.0,Estimated reference values; recipe/brand varies
+Tomato soup,Continental & bakery,50,8,5.0,1.5,1.5,Estimated reference values; recipe/brand varies
+Hummus,Continental & bakery,166,14,0.5,8.0,10.0,Estimated reference values; recipe/brand varies
+Peanut butter,Continental & bakery,588,20,9.0,25.0,50.0,Estimated reference values; recipe/brand varies
+Granola,Continental & bakery,450,64,20.0,10.0,15.0,Estimated reference values; recipe/brand varies
+Yogurt plain,Continental & bakery,61,4.7,4.7,3.5,3.3,Estimated reference values; recipe/brand varies
+Cheeseburger,Fast food & snacks,295,30,6.0,17.0,14.0,Estimated reference values; recipe/brand varies
+Chicken burger,Fast food & snacks,260,28,5.0,14.0,11.0,Estimated reference values; recipe/brand varies
+Fried chicken,Fast food & snacks,290,12,0.5,24.0,16.0,Estimated reference values; recipe/brand varies
+Chicken nuggets,Fast food & snacks,296,16,1.0,15.0,20.0,Estimated reference values; recipe/brand varies
+Hot dog,Fast food & snacks,290,24,4.0,11.0,17.0,Estimated reference values; recipe/brand varies
+Taco with beef,Fast food & snacks,220,20,2.0,10.0,11.0,Estimated reference values; recipe/brand varies
+Burrito bean and rice,Fast food & snacks,170,25,2.0,6.0,5.0,Estimated reference values; recipe/brand varies
+Nachos with cheese,Fast food & snacks,350,40,3.0,7.0,18.0,Estimated reference values; recipe/brand varies
+Potato chips,Fast food & snacks,536,53,0.5,7.0,34.0,Estimated reference values; recipe/brand varies
+Tortilla chips,Fast food & snacks,490,63,1.0,7.0,24.0,Estimated reference values; recipe/brand varies
+Popcorn air-popped,Fast food & snacks,387,78,0.9,13.0,4.5,Estimated reference values; recipe/brand varies
+Popcorn buttered,Fast food & snacks,500,45,1.0,8.0,32.0,Estimated reference values; recipe/brand varies
+Salted crackers,Fast food & snacks,430,68,5.0,9.0,12.0,Estimated reference values; recipe/brand varies
+Digestive biscuits,Fast food & snacks,470,67,20.0,7.0,20.0,Estimated reference values; recipe/brand varies
+Cream biscuits,Fast food & snacks,490,68,28.0,5.0,22.0,Estimated reference values; recipe/brand varies
+Instant noodles cooked,Fast food & snacks,140,19,1.5,4.0,5.0,Estimated reference values; recipe/brand varies
+Cup noodles prepared,Fast food & snacks,100,14,2.0,3.0,4.0,Estimated reference values; recipe/brand varies
+Roasted peanuts,Fast food & snacks,585,21,4.0,25.0,49.0,Estimated reference values; recipe/brand varies
+Almonds,Fast food & snacks,579,22,4.4,21.0,50.0,Estimated reference values; recipe/brand varies
+Cashews,Fast food & snacks,553,30,6.0,18.0,44.0,Estimated reference values; recipe/brand varies
+Trail mix,Fast food & snacks,462,44,30.0,14.0,29.0,Estimated reference values; recipe/brand varies
+Protein bar,Fast food & snacks,360,40,18.0,25.0,12.0,Estimated reference values; recipe/brand varies
+Granola bar,Fast food & snacks,420,64,25.0,8.0,14.0,Estimated reference values; recipe/brand varies
+French toast,Fast food & snacks,230,25,7.0,8.0,10.0,Estimated reference values; recipe/brand varies
+Spring roll fried,Fast food & snacks,250,28,4.0,5.0,13.0,Estimated reference values; recipe/brand varies
+Momos steamed veg,Fast food & snacks,160,25,3.0,5.0,4.0,Estimated reference values; recipe/brand varies
+Momos chicken steamed,Fast food & snacks,180,24,2.0,9.0,5.0,Estimated reference values; recipe/brand varies
+Onion rings,Fast food & snacks,330,38,5.0,4.0,18.0,Estimated reference values; recipe/brand varies
+Sausage,Fast food & snacks,301,2,1.0,12.0,27.0,Estimated reference values; recipe/brand varies
+Cheese pizza slice,Fast food & snacks,270,33,4.0,12.0,10.0,Estimated reference values; recipe/brand varies
+Gulab jamun,Sweets & desserts,350,48,35.0,5.0,16.0,Estimated reference values; recipe/brand varies
+Rasgulla,Sweets & desserts,186,38,32.0,4.0,1.0,Estimated reference values; recipe/brand varies
+Jalebi,Sweets & desserts,400,65,45.0,3.0,14.0,Estimated reference values; recipe/brand varies
+Laddu besan,Sweets & desserts,450,55,30.0,8.0,22.0,Estimated reference values; recipe/brand varies
+Motichoor laddu,Sweets & desserts,430,58,35.0,6.0,19.0,Estimated reference values; recipe/brand varies
+Kaju katli,Sweets & desserts,480,55,35.0,8.0,25.0,Estimated reference values; recipe/brand varies
+Mysore pak,Sweets & desserts,500,50,30.0,6.0,32.0,Estimated reference values; recipe/brand varies
+Payasam kheer,Sweets & desserts,150,24,18.0,4.0,4.0,Estimated reference values; recipe/brand varies
+Rice pudding,Sweets & desserts,130,22,14.0,3.5,3.0,Estimated reference values; recipe/brand varies
+Kulfi,Sweets & desserts,220,25,22.0,5.0,11.0,Estimated reference values; recipe/brand varies
+Vanilla ice cream,Sweets & desserts,207,24,21.0,3.5,11.0,Estimated reference values; recipe/brand varies
+Chocolate ice cream,Sweets & desserts,216,28,25.0,4.0,11.0,Estimated reference values; recipe/brand varies
+Chocolate dark,Sweets & desserts,598,46,24.0,8.0,43.0,Estimated reference values; recipe/brand varies
+Milk chocolate,Sweets & desserts,535,59,52.0,7.5,30.0,Estimated reference values; recipe/brand varies
+Chocolate cake,Sweets & desserts,370,52,35.0,5.0,16.0,Estimated reference values; recipe/brand varies
+Sponge cake,Sweets & desserts,297,48,30.0,6.0,8.0,Estimated reference values; recipe/brand varies
+Brownie,Sweets & desserts,466,58,38.0,6.0,24.0,Estimated reference values; recipe/brand varies
+Doughnut glazed,Sweets & desserts,420,52,24.0,5.0,22.0,Estimated reference values; recipe/brand varies
+Cookie chocolate chip,Sweets & desserts,488,64,36.0,6.0,24.0,Estimated reference values; recipe/brand varies
+Apple pie,Sweets & desserts,237,34,17.0,2.0,11.0,Estimated reference values; recipe/brand varies
+Carrot halwa,Sweets & desserts,220,30,23.0,4.0,9.0,Estimated reference values; recipe/brand varies
+Soan papdi,Sweets & desserts,480,65,35.0,5.0,22.0,Estimated reference values; recipe/brand varies
+Peda milk sweet,Sweets & desserts,330,45,40.0,10.0,12.0,Estimated reference values; recipe/brand varies
+Shrikhand,Sweets & desserts,200,25,22.0,6.0,8.0,Estimated reference values; recipe/brand varies
+Fruit custard,Sweets & desserts,120,20,16.0,3.0,3.0,Estimated reference values; recipe/brand varies
+Honey,Sweets & desserts,304,82,82.0,0.3,0,Estimated reference values; recipe/brand varies
+Jam,Sweets & desserts,250,65,50.0,0.5,0.1,Estimated reference values; recipe/brand varies
+Water,Drinks,0,0,0,0,0,Estimated reference values; recipe/brand varies
+Cola soft drink,Drinks,42,10.6,10.6,0,0,Estimated reference values; recipe/brand varies
+Orange soda,Drinks,45,11,11,0,0,Estimated reference values; recipe/brand varies
+Lemon-lime soda,Drinks,40,10.5,10.5,0,0,Estimated reference values; recipe/brand varies
+Energy drink regular,Drinks,45,11,11,0,0,Estimated reference values; recipe/brand varies
+Sports drink,Drinks,26,6.2,6.2,0,0,Estimated reference values; recipe/brand varies
+Orange juice,Drinks,45,10.4,8.4,0.7,0.2,Estimated reference values; recipe/brand varies
+Apple juice,Drinks,46,11.3,9.6,0.1,0.1,Estimated reference values; recipe/brand varies
+Mango juice drink,Drinks,55,13,12,0.3,0.1,Estimated reference values; recipe/brand varies
+Sweet lime juice,Drinks,43,10,8,0.5,0.1,Estimated reference values; recipe/brand varies
+Lassi sweet,Drinks,90,14,12,3,2,Estimated reference values; recipe/brand varies
+Buttermilk,Drinks,40,5,4,3,1.5,Estimated reference values; recipe/brand varies
+Milk whole,Drinks,61,4.8,4.8,3.2,3.3,Estimated reference values; recipe/brand varies
+Milk skim,Drinks,34,5,5,3.4,0.1,Estimated reference values; recipe/brand varies
+Chocolate milk,Drinks,83,10,9,3.2,3,Estimated reference values; recipe/brand varies
+Tea with milk and sugar,Drinks,35,5,5,1,1,Estimated reference values; recipe/brand varies
+Black tea unsweetened,Drinks,1,0.2,0,0,0,Estimated reference values; recipe/brand varies
+Coffee with milk and sugar,Drinks,45,7,6,1.5,1.5,Estimated reference values; recipe/brand varies
+Black coffee,Drinks,2,0,0,0.3,0,Estimated reference values; recipe/brand varies
+Cold coffee sweetened,Drinks,75,12,10,2,2,Estimated reference values; recipe/brand varies
+Milkshake vanilla,Drinks,112,17,15,3.5,3.5,Estimated reference values; recipe/brand varies
+Milkshake chocolate,Drinks,120,19,16,3.5,4,Estimated reference values; recipe/brand varies
+Coconut water,Drinks,19,3.7,2.6,0.7,0.2,Estimated reference values; recipe/brand varies
+Packaged iced tea,Drinks,30,7.5,7.2,0,0,Estimated reference values; recipe/brand varies
+Fresh lemonade sweetened,Drinks,40,10,9,0,0,Estimated reference values; recipe/brand varies
+Apple raw,Fruit & basic foods,52,13.8,10.4,0.3,0.2,Estimated reference values; recipe/brand varies
+Banana raw,Fruit & basic foods,89,22.8,12.2,1.1,0.3,Estimated reference values; recipe/brand varies
+Mango raw,Fruit & basic foods,60,15,13.7,0.8,0.4,Estimated reference values; recipe/brand varies
+Orange raw,Fruit & basic foods,47,11.8,9.4,0.9,0.1,Estimated reference values; recipe/brand varies
+Grapes,Fruit & basic foods,69,18.1,15.5,0.7,0.2,Estimated reference values; recipe/brand varies
+Watermelon,Fruit & basic foods,30,7.6,6.2,0.6,0.2,Estimated reference values; recipe/brand varies
+Papaya,Fruit & basic foods,43,10.8,7.8,0.5,0.3,Estimated reference values; recipe/brand varies
+Guava,Fruit & basic foods,68,14.3,8.9,2.6,1.0,Estimated reference values; recipe/brand varies
+Pineapple,Fruit & basic foods,50,13.1,9.9,0.5,0.1,Estimated reference values; recipe/brand varies
+Strawberries,Fruit & basic foods,32,7.7,4.9,0.7,0.3,Estimated reference values; recipe/brand varies
+Blueberries,Fruit & basic foods,57,14.5,10.0,0.7,0.3,Estimated reference values; recipe/brand varies
+Potato boiled,Fruit & basic foods,87,20.1,0.9,1.9,0.1,Estimated reference values; recipe/brand varies
+Sweet potato boiled,Fruit & basic foods,76,17.7,5.7,1.4,0.1,Estimated reference values; recipe/brand varies
+Carrot raw,Fruit & basic foods,41,9.6,4.7,0.9,0.2,Estimated reference values; recipe/brand varies
+Cucumber raw,Fruit & basic foods,15,3.6,1.7,0.7,0.1,Estimated reference values; recipe/brand varies
+Tomato raw,Fruit & basic foods,18,3.9,2.6,0.9,0.2,Estimated reference values; recipe/brand varies
+Broccoli cooked,Fruit & basic foods,35,7.2,1.4,2.4,0.4,Estimated reference values; recipe/brand varies
+Spinach cooked,Fruit & basic foods,23,3.8,0.4,3.0,0.3,Estimated reference values; recipe/brand varies
+Lentils cooked,Fruit & basic foods,116,20.1,1.8,9.0,0.4,Estimated reference values; recipe/brand varies
+Chickpeas cooked,Fruit & basic foods,164,27.4,4.8,8.9,2.6,Estimated reference values; recipe/brand varies
+Tofu firm,Fruit & basic foods,144,3.0,0.6,17.3,8.7,Estimated reference values; recipe/brand varies
+Paneer plain,Fruit & basic foods,265,4.0,2.0,18.3,20.8,Estimated reference values; recipe/brand varies
+Chicken breast cooked,Fruit & basic foods,165,0,0,31,3.6,Estimated reference values; recipe/brand varies
+Tuna canned in water,Fruit & basic foods,116,0,0,26,0.8,Estimated reference values; recipe/brand varies
+Salmon cooked,Fruit & basic foods,206,0,0,22,12,Estimated reference values; recipe/brand varies
+Wheat flour atta,Fruit & basic foods,340,72,2.0,13,2.5,Estimated reference values; recipe/brand varies
+Oats dry,Fruit & basic foods,389,66.3,0.9,16.9,6.9,Estimated reference values; recipe/brand varies
+Corn cooked,Fruit & basic foods,96,21,4.5,3.4,1.5,Estimated reference values; recipe/brand varies
+Sugar white,Fruit & basic foods,387,100,100,0,0,Estimated reference values; recipe/brand varies
+Olive oil,Fruit & basic foods,884,0,0,0,100,Estimated reference values; recipe/brand varies
