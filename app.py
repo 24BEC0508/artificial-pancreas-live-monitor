@@ -210,6 +210,252 @@ def line_figure(x, series, title, x_title, y_title, height=300):
     return fig
 
 
+
+def continuous_glucose_figure(state, target):
+    """Glucose trace with a growing elapsed-time axis and live meal markers."""
+    fig = go.Figure()
+    fig.add_hrect(y0=HYPO, y1=HYPER, fillcolor="rgba(45,160,110,.10)", line_width=0, layer="below")
+    fig.add_hline(y=target, line_dash="dash", line_color="#F5B942", annotation_text=f"Target {target:.0f}")
+    fig.add_hline(y=HYPO, line_dash="dot", line_color="#E76F51", opacity=.8)
+    fig.add_hline(y=HYPER, line_dash="dot", line_color="#E76F51", opacity=.8)
+    x_hours = np.asarray(state["t_data"], dtype=float) / 60.0
+    fig.add_trace(go.Scatter(
+        x=x_hours, y=state["g_data"], mode="lines", name="Simulated glucose",
+        line=dict(color="#55C2FF", width=2.8),
+        hovertemplate="Elapsed: %{x:.2f} h<br>Glucose: %{y:.1f} mg/dL<extra></extra>",
+    ))
+    for meal in state["meal_schedule"].entries:
+        meal_hour = float(meal.time_min) / 60.0
+        fig.add_vline(x=meal_hour, line_dash="dot", line_color="#C084FC", opacity=.8)
+        fig.add_annotation(x=meal_hour, y=1, yref="paper", text=f"Meal: {meal.name}",
+                           showarrow=False, yshift=10, font=dict(size=9, color="#D8B4FE"))
+    now_h = float(state["t"]) / 60.0
+    fig.update_layout(
+        title="Continuous glucose monitor · simulated", height=390,
+        margin=dict(l=8, r=12, t=54, b=8),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#DCE7F5", family="Inter, sans-serif"),
+        xaxis_title="Elapsed simulation time (hours)", yaxis_title="Glucose (mg/dL)",
+        hovermode="x unified", showlegend=False,
+    )
+    # The horizontal axis grows for the full session; it is not reset to 3 or 6 hours.
+    fig.update_xaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)",
+                     zeroline=False, range=[0, max(0.25, now_h * 1.04)])
+    fig.update_yaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)", zeroline=False)
+    return fig
+
+
+def continuous_line_figure(state, values_key, title, y_title, color):
+    """Continuous single-series chart sharing the growing simulation timeline."""
+    fig = go.Figure()
+    x_hours = np.asarray(state["t_data"], dtype=float) / 60.0
+    values = np.asarray(state[values_key], dtype=float)
+    # Some state series are logged once per controller sample; align lengths defensively.
+    count = min(len(x_hours), len(values))
+    fig.add_trace(go.Scatter(
+        x=x_hours[:count], y=values[:count], mode="lines", name=title,
+        line=dict(color=color, width=2.6),
+        hovertemplate="Elapsed: %{x:.2f} h<br>%{y:.2f}<extra></extra>",
+    ))
+    now_h = float(state["t"]) / 60.0
+    fig.update_layout(
+        title=title, height=330, margin=dict(l=8, r=12, t=50, b=8),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#DCE7F5", family="Inter, sans-serif"),
+        xaxis_title="Elapsed simulation time (hours)", yaxis_title=y_title,
+        hovermode="x unified", showlegend=False,
+    )
+    fig.update_xaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)",
+                     zeroline=False, range=[0, max(0.25, now_h * 1.04)])
+    fig.update_yaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)", zeroline=False)
+    return fig
+
+
+@st.fragment(run_every="1s")
+def continuous_monitor_fragment(patient, controller_kind, target, noise_sd, delay_min, random_seed):
+    """Session-local continuous simulation. One controller sample advances per refresh."""
+    st.markdown("<div class='section-kicker'>Independent continuous simulation</div>", unsafe_allow_html=True)
+    st.subheader("Continuous glucose & insulin monitor")
+    st.caption(
+        "This monitor has its own simulation state and does not change the existing 0–6 hour experiment. "
+        "It starts from the model's basal equilibrium; it is not connected to a real CGM or insulin pump."
+    )
+
+    if "continuous_sim" not in st.session_state:
+        st.session_state.continuous_sim = None
+    if "continuous_running" not in st.session_state:
+        st.session_state.continuous_running = False
+    if "continuous_speed" not in st.session_state:
+        st.session_state.continuous_speed = 1.0
+    if "continuous_config" not in st.session_state:
+        st.session_state.continuous_config = None
+
+    control_cols = st.columns([1.2, 1.2, 1.6, 2.0])
+    with control_cols[0]:
+        start_clicked = st.button("▶ Start / Resume", type="primary", use_container_width=True,
+                                  key="continuous_start")
+    with control_cols[1]:
+        pause_clicked = st.button("Ⅱ Pause", use_container_width=True, key="continuous_pause")
+    with control_cols[2]:
+        reset_clicked = st.button("↻ Reset monitor", use_container_width=True, key="continuous_reset")
+    with control_cols[3]:
+        speed_minutes = st.selectbox(
+            "Simulation pace", options=[1.0, 2.0, 5.0, 10.0], index=0,
+            format_func=lambda value: f"{value:g} simulated min / real second",
+            key="continuous_speed_select",
+            help="For this monitor, the selected pace also sets its controller sampling interval. Choose before starting; the original experiment settings remain independent.",
+            disabled=st.session_state.continuous_sim is not None,
+        )
+
+    if reset_clicked:
+        st.session_state.continuous_sim = None
+        st.session_state.continuous_running = False
+        st.session_state.continuous_meal_counter = 0
+        st.session_state.continuous_config = None
+        st.rerun()
+
+    if start_clicked:
+        if st.session_state.continuous_sim is None:
+            # Freeze this tab's experiment settings at start so sidebar edits cannot
+            # silently change the virtual patient halfway through a run.
+            st.session_state.continuous_config = {
+                "patient": patient,
+                "controller_kind": controller_kind,
+                "target": float(target),
+                "noise_sd": float(noise_sd),
+                "delay_min": float(delay_min),
+                "seed": int(random_seed) + 101,
+            }
+            cfg = st.session_state.continuous_config
+            # Keep this state independent from st.session_state.sim used by Live dashboard.
+            st.session_state.continuous_sim = init_state(
+                cfg["patient"], cfg["controller_kind"], cfg["target"], float(speed_minutes),
+                cfg["noise_sd"], cfg["delay_min"], [], cfg["seed"],
+            )
+            st.session_state.continuous_meal_counter = 0
+        st.session_state.continuous_running = True
+
+    if pause_clicked:
+        st.session_state.continuous_running = False
+
+    sim = st.session_state.continuous_sim
+    if sim is None:
+        st.info("Press **Start / Resume** to initialise the virtual patient at its basal equilibrium.")
+    else:
+        cfg = st.session_state.continuous_config or {
+            "patient": patient, "target": float(target), "controller_kind": controller_kind
+        }
+        monitor_patient = cfg["patient"]
+        monitor_target = float(cfg["target"])
+        st.caption(
+            f"Controller: **{cfg.get('controller_kind', controller_kind)}** · "
+            f"Setpoint: **{monitor_target:.0f} mg/dL** · "
+            f"Sensor noise: **{cfg.get('noise_sd', noise_sd):g} mg/dL SD** · "
+            f"CGM delay: **{cfg.get('delay_min', delay_min):g} min**"
+        )
+        if st.session_state.continuous_running:
+            # Each one-second fragment refresh advances one controller sample.
+            # At initialisation, the selected pace also sets this monitor's sample period.
+            step_sim(sim, monitor_patient)
+
+        glucose_now = float(sim["x"][0])
+        insulin_now = float(sim["u_data"][-1]) if sim["u_data"] else float(patient.u_basal)
+        plasma_now = float(sim["x"][2])
+        iob_now = float(sim["iob_data"][-1]) if sim["iob_data"] else 0.0
+        status = "LOW" if glucose_now < HYPO else "HIGH" if glucose_now > HYPER else "IN RANGE"
+        status_color = "#F87171" if status != "IN RANGE" else "#5EE0A0"
+        m1, m2, m3, m4 = st.columns(4)
+        m1.metric("Simulated glucose", f"{glucose_now:.1f} mg/dL", status)
+        m2.metric("Insulin delivery command", f"{insulin_now:.2f} mU/min")
+        m3.metric("Plasma insulin", f"{plasma_now:.2f} µU/mL")
+        m4.metric("IOB estimate", f"{iob_now:.2f} mU")
+        st.markdown(
+            f"<div class='small-note'>Monitor: <b style='color:{status_color}'>{'RUNNING' if st.session_state.continuous_running else 'PAUSED'}</b> "
+            f"· Elapsed simulated time: <b>{sim['t']:.1f} min ({sim['t']/60:.2f} h)</b> "
+            f"· Update interval: 1 second · Pace: {float(sim['ts']):g} simulated min/update</div>",
+            unsafe_allow_html=True,
+        )
+
+        # Food is logged at the current monitor time, not scheduled in advance.
+        st.markdown("#### Log a meal now")
+        st.caption("Choose the food and portion. The event is inserted at the current simulation time and drives the same meal-appearance model used by the original experiment.")
+        with st.form("continuous_meal_form", clear_on_submit=True):
+            c_food, c_qty, c_submit = st.columns([2.2, 1, 1])
+            live_food = c_food.selectbox("Food", FOOD_DB["food"].tolist(), key="continuous_food")
+            live_quantity = c_qty.number_input("Quantity (g/ml)", min_value=1.0, max_value=3000.0,
+                                               value=200.0, step=25.0, key="continuous_quantity")
+            add_meal_now = c_submit.form_submit_button("＋ Eat now", type="primary", use_container_width=True)
+        if add_meal_now:
+            nutrition = nutrition_for(live_food, live_quantity)
+            meal_entry = MealEntry(
+                live_food, float(live_quantity), nutrition["calories_kcal"],
+                nutrition["carbs_g"], nutrition["sugar_g"], nutrition["protein_g"],
+                nutrition["fat_g"], float(sim["t"]),
+            )
+            sim["meal_schedule"].entries.append(meal_entry)
+            st.session_state.continuous_meal_counter = st.session_state.get("continuous_meal_counter", 0) + 1
+            st.success(
+                f"Logged {live_food} at {sim['t']:.1f} simulated minutes · "
+                f"{nutrition['carbs_g']:.1f} g estimated carbohydrates."
+            )
+
+        glucose_col, insulin_col = st.columns(2, gap="medium")
+        with glucose_col:
+            st.plotly_chart(continuous_glucose_figure(sim, monitor_target),
+                            use_container_width=True, key="continuous_glucose_chart")
+        with insulin_col:
+            st.plotly_chart(continuous_line_figure(
+                sim, "u_data", "Insulin delivery commanded by controller", "Infusion (mU/min)", "#A78BFA"),
+                use_container_width=True, key="continuous_insulin_chart")
+        plasma_col, iob_col = st.columns(2, gap="medium")
+        with plasma_col:
+            st.plotly_chart(continuous_line_figure(
+                sim, "i_data", "Plasma insulin response", "Insulin (µU/mL)", "#5EE0A0"),
+                use_container_width=True, key="continuous_plasma_chart")
+        with iob_col:
+            iob_x = np.linspace(0, float(sim["t"]), len(sim["iob_data"]))
+            iob_fig = go.Figure()
+            iob_fig.add_trace(go.Scatter(x=iob_x / 60.0, y=sim["iob_data"], mode="lines",
+                                         name="IOB", line=dict(color="#F5B942", width=2.5)))
+            iob_fig.update_layout(title="Insulin on board estimate", height=330,
+                                  margin=dict(l=8,r=12,t=50,b=8),
+                                  paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                                  font=dict(color="#DCE7F5"), xaxis_title="Elapsed simulation time (hours)",
+                                  yaxis_title="IOB (mU)", hovermode="x unified")
+            iob_fig.update_xaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)",
+                                 range=[0, max(0.25, float(sim['t']) / 60.0 * 1.04)])
+            iob_fig.update_yaxes(showgrid=True, gridcolor="rgba(160,180,210,0.12)")
+            st.plotly_chart(iob_fig, use_container_width=True, key="continuous_iob_chart")
+
+        if sim["meal_schedule"].entries:
+            with st.expander(f"Meal event log · {len(sim['meal_schedule'].entries)} event(s)", expanded=True):
+                meal_rows = [{
+                    "Elapsed time (min)": round(m.time_min, 1), "Food": m.name,
+                    "Quantity (g/ml)": round(m.quantity_g, 1),
+                    "Estimated carbs (g)": round(m.carbs_g, 1),
+                    "Estimated energy (kcal)": round(m.calories_kcal, 1),
+                } for m in sim["meal_schedule"].entries]
+                st.dataframe(pd.DataFrame(meal_rows), use_container_width=True, hide_index=True)
+
+        export = pd.DataFrame({
+            "elapsed_time_min": sim["t_data"],
+            "simulated_glucose_mg_dL": sim["g_data"],
+            "insulin_delivery_command_mU_min": sim["u_data"],
+            "plasma_insulin_uU_mL": sim["i_data"],
+            "cgm_measurement_mg_dL": sim["y_data"],
+        })
+        st.download_button("↓ Download continuous-monitor CSV", export.to_csv(index=False).encode("utf-8"),
+                           file_name="continuous_monitor_simulation.csv", mime="text/csv",
+                           key="continuous_export")
+
+        st.warning(
+            "Simulation only. The displayed glucose is generated by the Bergman model from an assumed "
+            "basal starting state; it is not your measured blood glucose. Insulin delivery is a simulated "
+            "controller command only and is not sent to a pump or medical device. Do not use these values "
+            "for treatment or dosing decisions."
+        )
+
+
 # ---------------------------------------------------------------------------
 # UI
 # ---------------------------------------------------------------------------
@@ -312,7 +558,7 @@ if st.session_state.get("config_signature") != config_signature:
     st.session_state.sim = None
     st.session_state.config_signature = config_signature
 
-tab_dash, tab_meals, tab_compare, tab_about = st.tabs(["◉  Live dashboard", "＋  Meal planner", "⇄  Controller lab", "ⓘ  Model notes"])
+tab_dash, tab_meals, tab_compare, tab_continuous, tab_about = st.tabs(["◉  Live dashboard", "＋  Meal planner", "⇄  Controller lab", "∿  Continuous monitor", "ⓘ  Model notes"])
 
 with tab_meals:
     st.markdown("<div class='section-kicker'>Disturbance design</div>", unsafe_allow_html=True)
@@ -585,11 +831,16 @@ with tab_compare:
     elif not st.session_state.meals:
         st.info("Add one or more meals in Meal planner to enable controller comparison.")
 
+with tab_continuous:
+    continuous_monitor_fragment(
+        patient, controller_kind, float(target), float(noise_sd), float(delay_min), int(random_seed)
+    )
+
 with tab_about:
     st.markdown("<div class='section-kicker'>Model transparency</div>", unsafe_allow_html=True)
     st.subheader("What this simulator represents")
     st.markdown("""
-    This app wraps the project's existing **Bergman minimal model** and controller implementations. The live monitor spans 0–6 simulated hours and targets a 30-second real-time run; every monitor uses the same 0–6 hour axis.
+    This app wraps the project's existing **Bergman minimal model** and controller implementations. The original Live dashboard remains a 0–6 simulated-hour experiment. The separate Continuous monitor maintains an expanding elapsed-time trace for the duration of the active browser session.
     The model states represent plasma glucose, remote insulin action, and plasma insulin. Meal events
     create a glucose-appearance disturbance, while the selected controller calculates the total simulated
     infusion rate from the CGM measurement.

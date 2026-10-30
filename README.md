@@ -1,68 +1,52 @@
 # Artificial Pancreas: Feedback Control of Blood Glucose
 
-Control Systems (BECE302L) project. Bergman minimal model + PID / constrained PI (insulin-on-board) /
-LQR-with-observer, following the 8-phase roadmap of the project slides.
-Pure Python: **numpy + scipy + matplotlib only** (no `control` package, no MATLAB needed).
+Control Systems (BECE302L) project using the Bergman minimal model and feedback controllers: PID, constrained PI with insulin-on-board (IOB) safeguards, and LQR with an observer.
 
-## Setup (any OS, Python 3.9+)
+## Start the interactive application
 
-```
-pip install -r requirements.txt
-```
+**Windows:** Extract the project ZIP and double-click `START_HERE.bat`. It creates a project-local Python environment, installs the required packages, and starts the Streamlit app.
 
-## Run it - one phase at a time
+**Manual:** from the project root, run:
 
-```
-cd phases
-python phase1_parameters.py     # 1 Literature & parameters, units, basal equilibrium
-python phase2_nonlinear.py      # 2 Nonlinear simulation + model validation checks
-python phase3_linearization.py  # 3 Linearization, state space, transfer functions
-python phase4_time_stability.py # 4 Poles, Routh-Hurwitz, root locus, meal response
-python phase5_frequency.py      # 5 Bode, GM/PM, delay margin, sensitivity, patient-gain robustness
-python phase6_controllers.py    # 6 PID vs constrained PI vs LQR/pole-placement (add --retune to re-tune)
-python phase7_state_space.py    # 7 Controllability, observability, state feedback, observer
-python phase8_report.py         # 8 Builds results/REPORT.md from phases 1-7
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
 ```
 
-or everything at once (~1 min): `python run_all.py`.
-Add `--show` to any phase to pop up the figures; otherwise they are saved to `results/figures/`.
-Tests: `python -m unittest discover tests`.
+See [START_HERE.txt](START_HERE.txt) and [README_INTERACTIVE.md](README_INTERACTIVE.md) for full instructions and the new Continuous monitor tab.
 
-## Layout
+## Run the eight numerical project phases
 
-```
-ap/params.py       model parameters, meal model, targets (single source of truth)
-ap/model.py        nonlinear Bergman model, RK4 integrator
-ap/linear.py       linearization, transfer functions, Routh table, controllability/observability
-ap/analysis.py     frequency response, margins, root locus helpers
-ap/controllers.py  PIDController, ConstrainedPI (IOB), LQRObserverController (LQR or pole placement)
-ap/sim.py          sampled closed-loop simulation (noise, CGM delay) + clinical metrics
-ap/tuning.py       numerical tuning on the nonlinear model;  ap/tuned.py = frozen gains
-phases/            one script per project phase;   results/ = figures, JSON, REPORT.md
+```bash
+python run_all.py
 ```
 
-## Key modelling choices (worth stating in your report)
+Or run an individual phase from the `phases/` directory:
 
-- Units: u in mU/min, I in uU/mL, VI in L, so u/VI is uU/mL/min. `u` is the TOTAL infusion;
-  the slides' u(t) is `u - u_basal`, with `u_basal = n*Ib*VI`, so the physical constraint is u >= 0.
-- Plant gain is negative (insulin lowers glucose); controllers use positive gain on e = G - r.
-- Set point 100 mg/dL (basal 90), target range 70-180, pump limit 200 mU/min.
-- Controllers run at the CGM period (5 min); simulation can add 3 mg/dL noise and a 10 min delay.
-- Linearization is only a local design model (Phase 3 quantifies its error); every performance
-  number is measured on the nonlinear plant.
+1. `phase1_parameters.py` — model parameters and basal equilibrium
+2. `phase2_nonlinear.py` — nonlinear simulation
+3. `phase3_linearization.py` — linearization and state-space model
+4. `phase4_time_stability.py` — stability and time response
+5. `phase5_frequency.py` — frequency response and robustness
+6. `phase6_controllers.py` — controller comparisons
+7. `phase7_state_space.py` — controllability, observability, and observer design
+8. `phase8_report.py` — report generation
 
-## Caveats
+## Test the model
 
-- Parameters are typical literature values, not patient data. Check the citations in Phase 1
-  against the originals before putting them in a submission. This is a coursework simulation,
-  not a medical device.
-- The slides mention `python-control` and an optional MATLAB cross-check; neither is required here
-  (all analysis is done with scipy), and the MATLAB check is not included.
+```bash
+python -m unittest discover -s tests -v
+```
 
+## Project structure
 
-## Interactive app
-See [README_INTERACTIVE.md](README_INTERACTIVE.md) for the redesigned responsive Streamlit dashboard, food catalog, six-hour live monitoring, and deployment instructions.
+- `ap/` — model, parameters, controllers, simulation, and analysis modules
+- `app.py` — Streamlit dashboard and continuous monitor
+- `food_database.csv` — food and nutrition estimate catalog
+- `phases/` — eight-stage numerical analysis workflow
+- `results/` — saved phase outputs, figures, and report
+- `tests/` — model, linearization, and controller tests
 
+## Modelling caveat
 
-## Interactive app
-See [README_INTERACTIVE.md](README_INTERACTIVE.md) for the redesigned responsive Streamlit dashboard, food catalog, six-hour live monitoring, and deployment instructions.
+Parameters are illustrative literature-style values, not patient-specific data. The project is a coursework simulation, not a medical device. The Continuous monitor is a simulated trace; it does not connect to an actual CGM or insulin pump. Do not use its output to make treatment decisions or calculate real insulin doses.

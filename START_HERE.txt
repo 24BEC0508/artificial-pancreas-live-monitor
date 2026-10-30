@@ -1,0 +1,60 @@
+ARTIFICIAL PANCREAS — COMPLETE PROJECT
+======================================
+
+This folder contains the complete Python/Streamlit project, including:
+- The Bergman minimal-model simulation and integration routines
+- PID, constrained PI (IOB), and LQR + observer controllers
+- The existing Live dashboard, Meal planner, and Controller lab
+- The additional Continuous monitor tab
+- The bundled food database
+- All eight project-phase scripts, tests, and saved results/reports
+
+WINDOWS: ONE-CLICK START
+------------------------
+1. Extract the ZIP completely to a normal folder (do not run it from inside the ZIP).
+2. Double-click START_HERE.bat.
+3. On the first run, the script creates a local .venv and installs requirements.txt.
+4. When Streamlit starts, open the local URL shown in the terminal (usually
+   http://localhost:8501).
+
+The first setup needs an internet connection to download Python packages.
+Python 3.10 or newer is recommended. If the Windows py launcher is unavailable,
+START_HERE.bat falls back to the python command on PATH.
+
+MANUAL VS CODE / POWERSHELL START
+---------------------------------
+Open this extracted folder in VS Code, open Terminal, and run:
+
+    python -m pip install -r requirements.txt
+    python -m streamlit run app.py
+
+The same commands can be run from a terminal whose current directory is this
+project folder. The optional numerical analysis pipeline is:
+
+    python run_all.py
+
+Tests:
+
+    python -m unittest discover -s tests -v
+
+CONTINUOUS MONITOR
+------------------
+Open the separate "Continuous monitor" tab. Select a simulation pace before
+starting, click Start / Resume, and use "Log a meal now" to timestamp a food
+and portion at the current simulated time. Pause, resume, reset, review meal
+events, and export the trace as CSV. The original six-hour experiment remains
+separate and is not reset or modified by the continuous monitor.
+
+IMPORTANT LIMITATION
+--------------------
+This is an educational control-systems simulation. It starts from an assumed
+Bergman-model basal equilibrium and generates simulated glucose values. It is
+NOT a real CGM: it does not measure your blood glucose. The insulin-delivery
+trace is a simulated controller command and is NOT connected to a physical
+insulin pump. Do not use its values for medical decisions or dosing.
+
+GITHUB / STREAMLIT DEPLOYMENT
+-----------------------------
+The project root is this folder. Commit app.py, the ap/ package,
+food_database.csv, requirements.txt, and the README files to the repository
+connected to Streamlit Community Cloud. Do not commit .venv/.
